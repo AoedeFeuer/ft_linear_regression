@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 class FTLinReg():
 	def __init__(self, iteration, learning_rate):
@@ -14,13 +15,13 @@ class FTLinReg():
 		self.price = price
 
 		for i in range(self.iteration):
-			self.update_theta1()
+			self.update_thetha1()
 		return self
 
 	def update_thetha1(self):
 		price_prediction = self.predict(self.km)
-
-		d_thetha1 = (-2 / self.m) * (self.km.T).dot(self.price - price_prediction)
+		
+		d_thetha1 = - (2  * (self.km.T).dot(self.price - price_prediction) ) / self.m
 		d_thetha0 = (-2 / self.m) * np.sum(self.price - price_prediction)
 
 		self.thetha1 = self.thetha1 - self.learning_rate * d_thetha1
@@ -38,8 +39,11 @@ def main ():
 	price = data_info.iloc[:,1].values
 
 	#train
-	model = FTLinReg(iteration = 100, learning_rate = 0.01)
+	model = FTLinReg(iteration = 5, learning_rate = 0.01)
 	model.fit(km, price)
+
+	plt.scatter(km, price, color = 'blue')
+	plt.show()
 
 if __name__ == "__main__":
 	main()
