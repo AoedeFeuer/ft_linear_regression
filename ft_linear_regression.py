@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 
 def ft_min_max_norm(minmax, num):
 	return(((num - minmax['min']) / (minmax['max'] - minmax['min'])))
@@ -13,7 +12,7 @@ def predict_price(theta, norm_km):
 
 def gradient_des(n, theta, norm_km, norm_price, theta_tmp, cost_t, error_cost):
 	for i in range(n):
-		y_pred = predict_price(theta, norm_km[i])   # predict value for given x
+		y_pred = predict_price(theta, norm_km[i])
 		error_cost += (norm_price[i] - y_pred)**2
 		theta_tmp[0] += (y_pred - norm_price[i])
 		theta_tmp[1] += ((y_pred - norm_price[i]) * norm_km[i])
@@ -23,7 +22,6 @@ def gradient_des(n, theta, norm_km, norm_price, theta_tmp, cost_t, error_cost):
 
 def main ():
 
-	#import dataset	
 	df = pd.read_csv('data.csv')
 
 	km = np.array(df.iloc[:,:-1].values, dtype='float64')
